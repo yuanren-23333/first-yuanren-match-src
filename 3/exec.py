@@ -3,13 +3,13 @@ import requests, statistics
 switch_url = 'http://match.yuanrenxue.com/logo'
 api_url = 'http://match.yuanrenxue.com/api/match/3?page={page}'
 
-def get_sessionid():
-    headers = {'Referer': 'http://match.yuanrenxue.com/match/3', 'Accept-Language': 'zh-CN,zh'}
-    r = requests.post(switch_url, headers = headers)
-    return r.headers['Set-Cookie'].split(';')[0].split('=')[1]
-
 def make_header(sessionid):
     return  {'Referer': 'http://match.yuanrenxue.com/match/3', 'Accept-Language': 'zh-CN,zh', 'Cookie': 'sessionid=' + sessionid}
+
+def get_sessionid():
+    headers = make_header("")
+    r = requests.post(switch_url, headers = headers)
+    return r.headers['Set-Cookie'].split(';')[0].split('=')[1]
 
 def switch_on(sessionid):
     headers = make_header(sessionid)
